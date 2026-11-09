@@ -3,17 +3,25 @@ const navMenu = document.getElementById('nav-menu');
 const navToggle = document.getElementById('nav-toggle');
 const navClose = document.getElementById('nav-close');
 
+const setNavMenuOpen = (isOpen) => {
+   if (!navMenu || !navToggle) return;
+
+   navMenu.classList.toggle('show-menu', isOpen);
+   navToggle.setAttribute('aria-expanded', String(isOpen));
+};
+
 if (navToggle && navMenu) {
-   navToggle.addEventListener('click', () => navMenu.classList.add('show-menu'));
+   navToggle.setAttribute('aria-expanded', 'false');
+   navToggle.addEventListener('click', () => setNavMenuOpen(true));
 }
 
 /*=============== REMOVE MENU MOBILE ===============*/
 if (navClose && navMenu) {
-   navClose.addEventListener('click', () => navMenu.classList.remove('show-menu'));
+   navClose.addEventListener('click', () => setNavMenuOpen(false));
 }
 
 document.querySelectorAll('.nav__link').forEach((link) => {
-   link.addEventListener('click', () => navMenu?.classList.remove('show-menu'));
+   link.addEventListener('click', () => setNavMenuOpen(false));
 });
 
 /*=============== ADD BLUR TO HEADER ===============*/
